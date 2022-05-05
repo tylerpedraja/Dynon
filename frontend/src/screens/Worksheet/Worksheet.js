@@ -1,5 +1,6 @@
 import React from 'react'
 import '../Worksheet/worksheet.css'
+import ProductsWorksheet from '../../components/ProductsWorksheet/ProductsWorksheet';
 import skyviewtop from '../../images/skyview-top.jpg';
 
 const Worksheet = () => {
@@ -28,6 +29,9 @@ const Worksheet = () => {
         </div>
       </div>
     </div>
+
+    {/* Products List */}
+    <ProductsWorksheet />
     </>
   )
 }

@@ -5,7 +5,8 @@ if (process.env.NODE_ENV !== 'production') {
   const mongoose = require('mongoose');
   const bodyParser = require("body-parser");
   const path = require('path');
-  const PORT = process.env.PORT || 3002;
+  // const PORT = process.env.PORT || 3002;
+  const PORT = 3002;
   
   connectToDb().catch(err => console.log(err));
   
@@ -26,6 +27,12 @@ if (process.env.NODE_ENV !== 'production') {
       res.send('API is running....')
     })
   }
+
+  app.get('/api/product-types', (req, res) => {
+    res.status(200);
+    
+    res.send('hit the endpoint')
+  })
 
   app.listen(PORT, () => {
       console.log('listening on port', PORT);
