@@ -1,28 +1,57 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './products-worksheet.css';
 import ProductsWorksheetSection from '../ProductsWorksheetSection/ProductsWorksheetSection';
 import axios from 'axios';
 
 const ProductsWorksheet = () => {
+  const [productTypes, setProductTypes] = useState([])
+  const [products, setProducts] = useState([])
+  const [loaded, setLoaded] = useState(false)
 
-    useEffect(() => {
-        const getProductTypes = async () => {
-          const data = await axios.get('/api/product-types');
-          console.log(data);
-        }
+  const getProductTypes = async () => {
+    const { data } = await axios.get('/api/product-types');
+    setProductTypes(data)
+    setLoaded(true)
+  }
 
-        getProductTypes()
-        // TODO: Figure out why can't proxy http request...
-    }, []) 
+  const getProducts = async () => {
+    const { data } = await axios.get('/api/products');
+    setProducts(data);
+  }
 
-  return (
+  const showWorksheet = () => {
+    return (
     <div className="container">
-        {/* {productSections.map(section => <ProductsWorksheetSection 
-                                        type={section.type} 
-                                        subtypes={section.subtypes} 
-                                        header={section.header} 
-                                        subheader={section.subheader} />)} */}
+        {products.forEach((product) => {
+        })}
+        {productTypes.map(type => <ProductsWorksheetSection 
+                                        type={type.type} 
+                                        subtypes={type.subtypes} 
+                                        header={type.header} 
+                                        subheader={type.subheader}
+                                        products={products.filter(product => product.type == type.type)} />)}
     </div>
+    )
+  }
+
+  const spinner = () => {
+    return (
+      <div className="spinner-border d-block mx-auto mt-5" role="status">
+          <span className="sr-only">Loading...</span>
+      </div>
+    )
+  }
+  
+  useEffect(() => {
+    getProductTypes()
+    getProducts()
+    
+  }, [])
+      
+  return (
+    <>
+    { loaded ? showWorksheet() : spinner() } 
+    </>
   )
 }
 

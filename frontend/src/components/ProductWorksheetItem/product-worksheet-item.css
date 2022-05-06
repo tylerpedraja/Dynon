@@ -1,0 +1,10 @@
+.action-btn i {
+    padding: 5px;
+    border-radius: 4px;
+    background-color: transparent;
+    transition: background-color 0.1s ease-in; 
+}
+
+.action-btn i:hover {
+    background-color: #cfcfcf;
+}

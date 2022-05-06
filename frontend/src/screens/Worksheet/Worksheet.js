@@ -32,6 +32,11 @@ const Worksheet = () => {
 
     {/* Products List */}
     <ProductsWorksheet />
+    <div style={{position:'sticky', bottom: '0px', left: '0px', width: '100%'}}>
+      <div class="alert alert-success text-center" role="alert">
+        Your estimated total is: $5,040.00
+      </div>
+    </div>
     </>
   )
 }
