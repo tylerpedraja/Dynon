@@ -1,16 +1,13 @@
 import React from 'react'
-import '../Worksheet/worksheet.css'
 import ProductsWorksheet from '../../components/ProductsWorksheet/ProductsWorksheet';
+import Banner from '../../components/Banner/Banner';
 import skyviewtop from '../../images/skyview-top.jpg';
 
 const Worksheet = () => {
   return (
     <>
     {/* Banner */}
-    <div className="banner py-5 text-white text-center">
-        <h1>Dynon Skyview Order Worksheet</h1>
-        <h4>Build Your Custom Dynon Skyview Panel</h4>
-    </div>
+    <Banner title={'Dynon Skyview Order Worksheet'} subtitle={'Build Your Custom Dynon Skyview Panel'} />
 
     {/* Description */}
     <div className="container mt-3">
@@ -32,11 +29,6 @@ const Worksheet = () => {
 
     {/* Products List */}
     <ProductsWorksheet />
-    <div style={{position:'sticky', bottom: '0px', left: '0px', width: '100%'}}>
-      <div class="alert alert-success text-center" role="alert">
-        Your estimated total is: $5,040.00
-      </div>
-    </div>
     </>
   )
 }

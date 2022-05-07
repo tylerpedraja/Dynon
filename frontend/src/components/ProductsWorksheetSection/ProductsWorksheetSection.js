@@ -12,7 +12,7 @@ const ProductsWorksheetSection = (props) => {
         {props.subtypes.map((subtype) => {
             return (
             <>
-            <thead>
+            <thead key={subtype.name}>
                 <tr>
                     <th scope="col">Part Number</th>
                     <th scope="col">{subtype.name}</th>
@@ -20,14 +20,15 @@ const ProductsWorksheetSection = (props) => {
                     <th scope="col">Stock</th>
                     <th scope="col"></th>
                     <th scope="col">Qty.</th>
-                    <th scope="col" width="50px">Subtotal</th>
+                    <th scope="col" width="100px">Subtotal</th>
                 </tr>
             </thead>
             <tbody>
                 {props.products.map((product) => {
                     if (product.subgroup == subtype.name) {
                     return (
-                        <ProductWorksheetItem 
+                        <ProductWorksheetItem
+                            key={product.part_number} 
                             part_number={product.part_number}
                             name={product.name}
                             price={product.price}

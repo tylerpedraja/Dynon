@@ -35,8 +35,8 @@ const handleAddItem = () => {
             <td>
               {props.qty_in_stock > 0 && (
               <div className="d-flex align-items-center action-btn">
-              <i role='button' class="fa-solid fa-minus d-block" onClick={handleSubtractItem}></i>
-              <i role='button' class="fa-solid fa-plus ms-2 d-block" onClick={handleAddItem}></i>
+              <i role='button' className="fa-solid fa-minus d-block" onClick={handleSubtractItem}></i>
+              <i role='button' className="fa-solid fa-plus ms-2 d-block" onClick={handleAddItem}></i>
               </div>
               )}
             </td>

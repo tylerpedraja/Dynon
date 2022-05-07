@@ -24,7 +24,8 @@ const ProductsWorksheet = () => {
     <div className="container">
         {products.forEach((product) => {
         })}
-        {productTypes.map(type => <ProductsWorksheetSection 
+        {productTypes.map(type => <ProductsWorksheetSection
+                                        key={type.type} 
                                         type={type.type} 
                                         subtypes={type.subtypes} 
                                         header={type.header} 
