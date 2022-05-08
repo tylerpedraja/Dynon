@@ -9,8 +9,7 @@ import Product from './Models/productModel.js';
 
 const __dirname = path.resolve();
 
-// const PORT = process.env.PORT || 3002;
-const PORT = 3002;
+const PORT = process.env.PORT || 3002;
 
 dotenv.config()
 
