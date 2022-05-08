@@ -40,7 +40,7 @@ if (process.env.NODE_ENV === 'production') {
     res.send(productType);
 })
 
-app.post('/api/add-product', async (req, res) => {
+app.post('/api/product', async (req, res) => {
     const data = {
         part_number: req.body.part_number,
         name: req.body.name,
@@ -60,6 +60,28 @@ app.post('/api/add-product', async (req, res) => {
     })
 
 })
+
+app.post('/api/product-types', async (req, res) => {
+    const data = {
+        header: req.body.header,
+        subheader: {
+            title: req.body.title,
+            description: req.body.description
+        },
+        type: req.body.type
+    }
+
+    ProductType.create(data, (err) => {
+        if (err) {
+            return console.error(err)
+        }
+
+        res.status(200)
+        res.send(data)
+    })
+
+})
+
 
 app.put('/api/producttype/update/:type', async (req, res) => {
     const filter = {
@@ -106,23 +128,6 @@ app.get('/api/products/:type', async (req, res) => {
     }
 })
 
-// app.post('/api/insert', (req, res) => {
-// const data = {
-//     part_number: '102821-000',
-//     name: `SV-HARNESS-D37 Display Harness`,
-//     price: 124.00,
-//     qty_in_stock: 89,
-//     type: 'display',
-//     subgroup: 'Harness (1 per display)'
-// }
-
-// Product.create(data, (err) => {
-//     if (err) { console.log(err) }
-
-//     res.status(200)
-//     res.send('sent data');
-// })
-// })
 
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT} in ${

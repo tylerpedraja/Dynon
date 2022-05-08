@@ -9,14 +9,14 @@ const Input = () => {
     const [selectedProductType, setSelectedProductType] = useState("");
     const [productSubtypes, setProductSubtypes] = useState([]);
     const [selectedProductSubtype, setSelectedProductSubtype] = useState("");
-    const [price, setPrice] = useState(null);
+    const [price, setPrice] = useState('');
     const [loaded, setLoaded] = useState(false);
     const [showOtherSubtype, setShowOtherSubtype] = useState(false)
 
-    const [qtyInStock, setQtyInStock] = useState(null)
-    const [otherSubtype, setOtherSubtype] = useState(null)
-    const [partNumber, setPartNumber] = useState(null)
-    const [name, setName] = useState(null)
+    const [qtyInStock, setQtyInStock] = useState('')
+    const [otherSubtype, setOtherSubtype] = useState('')
+    const [partNumber, setPartNumber] = useState('')
+    const [name, setName] = useState('')
 
     const getProductTypes = async () => {
         try {
@@ -105,7 +105,7 @@ const Input = () => {
     };
 
     const postProduct = () => {
-        axios.post('/api/add-product', {
+        axios.post('/api/product', {
             part_number: partNumber,
             name: name,
             price: price,

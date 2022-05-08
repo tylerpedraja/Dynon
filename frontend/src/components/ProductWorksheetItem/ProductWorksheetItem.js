@@ -5,6 +5,19 @@ const ProductWorksheetItem = (props) => {
   const [quantity, setQuantity] = useState(0)
   const [subTotal, setSubTotal] = useState(0)
 
+  
+  const handleSubtractItem = () => {
+    if (quantity !== 0) {
+      setQuantity(quantity - 1);
+      setSubTotal(subTotal - props.price)
+    }
+  }
+  
+  const handleAddItem = () => {
+    setQuantity(quantity + 1);
+    setSubTotal(subTotal + props.price)
+  }
+  
   const formatCurrency = (value) => {
     const formatted = value.toLocaleString('en-US', {
       style: 'currency',
@@ -12,19 +25,6 @@ const ProductWorksheetItem = (props) => {
     })
     return formatted
   }
-
-const handleSubtractItem = () => {
-  if (quantity !== 0) {
-    setQuantity(quantity - 1);
-    setSubTotal(subTotal - props.price)
-  }
-}
-
-const handleAddItem = () => {
-    setQuantity(quantity + 1);
-    setSubTotal(subTotal + props.price)
-}
-
   return (
     <>
         <tr scope="row" className={quantity > 0 ? 'table-active' : ''}>

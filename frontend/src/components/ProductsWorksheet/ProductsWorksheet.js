@@ -56,7 +56,6 @@ const ProductsWorksheet = () => {
     useEffect(() => {
         getProductTypes()
         getProducts()
-
     }, [])
 
     return (
