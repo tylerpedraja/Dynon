@@ -9,9 +9,18 @@ const productTypeSchema = mongoose.Schema({
     type: {
         type: String,
         required: true,
-        lowercase: true
+        lowercase: true,
+        unique: true
     },
-    subtypes: [Object]
+    subtypes: [
+        {
+            name: {
+                type: String,
+                required: true,
+                unique: true
+            }
+        }
+    ]
 })
 
 const ProductType = mongoose.model('ProductTypes', productTypeSchema)
