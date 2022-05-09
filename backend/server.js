@@ -7,12 +7,11 @@ import path from 'path'
 import ProductType from '../backend/Models/productTypeModel.js'
 import Product from './Models/productModel.js';
 
-// const __dirname = path.resolve();
-
 const PORT = process.env.PORT || 3002;
 
-
 dotenv.config()
+
+const __dirname = path.resolve();
 
 connectToDb().catch(err => console.log(err)). finally(() => {
     console.log('connected to MongoDB')
