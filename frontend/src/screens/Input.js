@@ -106,6 +106,7 @@ const Input = () => {
         putProductSubtype()
         postProduct()
         navigate('/');
+        
     };
 
     const postProduct = () => {
