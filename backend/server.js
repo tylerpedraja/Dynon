@@ -30,6 +30,9 @@ async function connectToDb() {
     await mongoose.connect(process.env.DATABASE_URL);
 }
 
+    app.get('*', (req, res) => {
+        app.use(express.static(path.join(__dirname, '../frontend/build')))    
+    })
 // if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../frontend/build')))
 // } else {
