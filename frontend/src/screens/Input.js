@@ -2,8 +2,10 @@ import React, {useState, useEffect} from "react";
 import Banner from "../components/Banner/Banner";
 import axios from "axios";
 import ProductTypeInput from "../components/ProductTypeInput";
+import { useNavigate } from "react-router-dom";
 
 const Input = () => {
+    const navigate = useNavigate();
     const [productTypeEditor, setProductTypeEditor] = useState(false);
     const [productTypes, setProductTypes] = useState([]);
     const [selectedProductType, setSelectedProductType] = useState("");
@@ -100,8 +102,10 @@ const Input = () => {
     }
 
     const handleSubmitProduct = (e) => {
+        e.preventDefault();
         putProductSubtype()
         postProduct()
+        navigate('/');
     };
 
     const postProduct = () => {
