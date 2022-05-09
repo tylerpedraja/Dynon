@@ -135,7 +135,7 @@ const Input = () => {
                 }
                     <div className="container">
                         <h1 className="h5 mt-5 mb-2">Add a Product</h1>
-                        <form action="/" method="get">
+                        <form>
                             <div className="row ">
                                 <div className="col-md-6 mt-3">
                                     <div className="form-group">
