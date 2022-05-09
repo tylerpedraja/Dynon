@@ -28,14 +28,14 @@ const ProductWorksheetItem = (props) => {
   return (
     <>
         <tr scope="row" className={quantity > 0 ? 'table-active' : ''}>
-            <td>{props.part_number}</td>
+            <td className="d-none d-md-table-cell">{props.part_number}</td>
             <td>{props.name}</td>
             <td>{formatCurrency(props.price)}</td>
             {/* {props.qty_in_stock > 0 ? <td className="text-success fw-bold">In stock</td> : <td className="text-muted">Out of Stock</td>} */}
             <td>
-              <div className="d-flex align-items-center action-btn">
+              <div className="d-flex flex-column flex-md-row align-items-center action-btn">
               <i role='button' className="fa-solid fa-minus d-block" onClick={handleSubtractItem}></i>
-              <i role='button' className="fa-solid fa-plus ms-2 d-block" onClick={handleAddItem}></i>
+              <i role='button' className="fa-solid fa-plus ms-md-2 d-block" onClick={handleAddItem}></i>
               </div>
             </td>
             {<td className={quantity > 0 ? 'fw-normal' : 'fw-light'}>{quantity}</td>}

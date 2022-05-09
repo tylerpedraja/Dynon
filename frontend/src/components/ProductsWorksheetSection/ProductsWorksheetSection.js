@@ -39,7 +39,7 @@ const ProductsWorksheetSection = (props) => {
                                             subtype.name
                                     }>
                                         <tr>
-                                            <th scope="col">Part Number</th>
+                                            <th scope="col" className="d-none d-md-table-cell">Part Number</th>
                                             <th scope="col">
                                                 {
                                                 subtype.name
