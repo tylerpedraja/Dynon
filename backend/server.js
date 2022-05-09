@@ -22,21 +22,21 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.json());
 
-if (process.env.NODE_ENV === 'development') {
-    app.use(morgan('dev'))
-}
+// if (process.env.NODE_ENV === 'development') {
+//     app.use(morgan('dev'))
+// }
 
 async function connectToDb() {
     await mongoose.connect(process.env.DATABASE_URL);
 }
 
-if (process.env.NODE_ENV === 'production') {
+// if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../frontend/build')))
-} else {
-    app.get('/', (req, res) => {
-        res.send('API is running....')
-    })
-}
+// } else {
+//     app.get('/', (req, res) => {
+//         res.send('API is running....')
+//     })
+// }
 
 app.get('/api/product-types', async (req, res) => {
     const productType = await ProductType.find({ removed: false })
