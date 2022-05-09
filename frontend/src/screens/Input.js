@@ -100,7 +100,8 @@ const Input = () => {
     }
 
     const handleSubmitProduct = (e) => {
-        putProductSubtype()
+
+        // putProductSubtype()
         postProduct()
     };
 
