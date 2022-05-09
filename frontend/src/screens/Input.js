@@ -2,8 +2,11 @@ import React, {useState, useEffect} from "react";
 import Banner from "../components/Banner/Banner";
 import axios from "axios";
 import ProductTypeInput from "../components/ProductTypeInput";
+import { useHistory } from 'react-router'
 
 const Input = () => {
+    const history = useHistory();
+
     const [productTypeEditor, setProductTypeEditor] = useState(false);
     const [productTypes, setProductTypes] = useState([]);
     const [selectedProductType, setSelectedProductType] = useState("");
@@ -101,9 +104,9 @@ const Input = () => {
 
     const handleSubmitProduct = (e) => {
         e.preventDefault();
-        alert('Product Added')
         putProductSubtype()
         postProduct()
+        history.go(0)
     };
 
     const postProduct = () => {

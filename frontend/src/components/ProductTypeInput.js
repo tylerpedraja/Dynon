@@ -22,7 +22,6 @@ const ProductTypeInput = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        alert(`Added product type: ${type}`)
         axios.post('api/product-types', {
             type: type,
             title: title,
