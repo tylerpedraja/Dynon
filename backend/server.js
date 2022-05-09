@@ -7,9 +7,10 @@ import path from 'path'
 import ProductType from '../backend/Models/productTypeModel.js'
 import Product from './Models/productModel.js';
 
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
 const PORT = process.env.PORT || 3002;
+
 
 dotenv.config()
 
@@ -36,8 +37,10 @@ if (process.env.NODE_ENV === 'production') {
     app.get('/', (req, res) => {
         res.send('API is running....')
     })
-} app.get('/api/product-types', async (req, res) => {
-    const productType = await ProductType.find({})
+}
+
+app.get('/api/product-types', async (req, res) => {
+    const productType = await ProductType.find({ removed: false })
     res.send(productType);
 })
 

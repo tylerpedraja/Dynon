@@ -19,7 +19,11 @@ const productTypeSchema = mongoose.Schema({
                 unique: true
             }
         }
-    ]
+    ],
+    removed: {
+        type: Boolean,
+        default: false
+    }
 })
 
 const ProductType = mongoose.model('ProductTypes', productTypeSchema)

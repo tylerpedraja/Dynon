@@ -9,7 +9,7 @@ const NavBar = () => {
         <nav className="navbar navbar-dark bg-dark">
           <img className="img-fluid logo p-3" src={logo} alt="logo"></img>
           <div className="d-flex align-items-center">
-              <Link className="nav-link text-white" to={'input-product'}>Add Product</Link>
+              <Link className="nav-link text-white" to={'input-product'}>Manage Products</Link>
               <Link className="nav-link text-white" to={'/'}>Worksheet</Link>
           </div>
         </nav>

@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import NavBar from './components/NavBar/NavBar';
 import Worksheet from './screens/Worksheet/Worksheet';
-import Input from './screens/Input';
 import ErrorPage from './screens/ErrorPage';
+import ProductManager from './components/ProductManager';
+import Input from './screens/Input';
 
 function App() {
   return (

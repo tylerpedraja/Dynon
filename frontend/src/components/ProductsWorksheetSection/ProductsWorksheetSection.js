@@ -45,7 +45,7 @@ const ProductsWorksheetSection = (props) => {
                                                 subtype.name
                                             }</th>
                                             <th scope="col">Price</th>
-                                            <th scope="col">Stock</th>
+                                            {/* <th scope="col">Stock</th> */}
                                             <th scope="col"></th>
                                             <th scope="col">Qty.</th>
                                             <th scope="col" width="100px">Subtotal</th>
