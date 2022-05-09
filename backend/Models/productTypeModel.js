@@ -16,7 +16,6 @@ const productTypeSchema = mongoose.Schema({
         {
             name: {
                 type: String,
-                unique: true
             }
         }
     ],
