@@ -100,8 +100,9 @@ const Input = () => {
     }
 
     const handleSubmitProduct = (e) => {
-
-        // putProductSubtype()
+        e.preventDefault();
+        alert('Product Added')
+        putProductSubtype()
         postProduct()
     };
 
