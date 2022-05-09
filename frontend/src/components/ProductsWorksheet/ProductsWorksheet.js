@@ -9,6 +9,8 @@ const ProductsWorksheet = () => {
     const [loaded, setLoaded] = useState(false)
 
     const getProductTypes = async () => {
+        console.log('running getProductTypes now...')
+
         const {data} = await axios.get('/api/product-types').catch((err) => {
             if (err.response) {
                 console.log(err.response.data);
@@ -23,6 +25,7 @@ const ProductsWorksheet = () => {
               }
               console.log(err.config);
         });
+        console.log('data retrieved: ', data)
         setProductTypes(data)
         setLoaded(true)
     }
