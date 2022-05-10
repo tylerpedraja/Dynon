@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import './products-worksheet.css';
 import ProductsWorksheetSection from '../ProductsWorksheetSection/ProductsWorksheetSection';
 import axios from 'axios';
@@ -11,7 +11,7 @@ const ProductsWorksheet = () => {
     const getProductTypes = async () => {
         console.log('running getProductTypes now...')
 
-        const {data} = await axios.get('/api/product-types').catch((err) => {
+        const { data } = await axios.get('/api/product-types').catch((err) => {
             if (err.response) {
                 console.log(err.response.data);
                 console.log(err.response.status);
@@ -19,11 +19,11 @@ const ProductsWorksheet = () => {
             }
             else if (err.request) {
                 console.log(err.request);
-              }
-              else {
+            }
+            else {
                 console.log('Error', err.message);
-              }
-              console.log(err.config);
+            }
+            console.log(err.config);
         });
         console.log('data retrieved: ', data)
         setProductTypes(data)
@@ -31,7 +31,7 @@ const ProductsWorksheet = () => {
     }
 
     const getProducts = async () => {
-        const {data} = await axios.get('/api/products');
+        const { data } = await axios.get('/api/products');
         setProducts(data);
     }
 
@@ -39,8 +39,9 @@ const ProductsWorksheet = () => {
         return (
             <div className="container">
                 {
-                productTypes.map(type => <ProductsWorksheetSection key={
-                        type.type
+                productTypes.map(type => <ProductsWorksheetSection 
+                    key={
+                        type._id
                     }
                     type={
                         type.type
@@ -57,7 +58,8 @@ const ProductsWorksheet = () => {
                     products={
                         products.filter(product => product.type.toLowerCase() == type.type.toLowerCase())
                     }/>)
-            } </div>
+            } 
+            </div>
         )
     }
 

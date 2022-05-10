@@ -21,7 +21,6 @@ const ProductTypeInput = () => {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
         axios.post('api/product-types', {
             type: type,
             title: title,

@@ -95,7 +95,6 @@ app.put('/api/producttype/update/:type', async (req, res) => {
         type: req.params.type
     }
     
-    
     const update = {
         $push: {
             subtypes: {
@@ -105,7 +104,7 @@ app.put('/api/producttype/update/:type', async (req, res) => {
     }
     
     const type = await ProductType.find(filter)
-    type.forEach(async (typObj) => {
+    type.forEach(async (typeObj) => {
         if (typeObj.subtypes !== req.body.subgroup) {
             const data = await ProductType.findOneAndUpdate(filter, update)
             res.send(data);

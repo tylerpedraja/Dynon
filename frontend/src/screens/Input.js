@@ -2,10 +2,8 @@ import React, {useState, useEffect} from "react";
 import Banner from "../components/Banner/Banner";
 import axios from "axios";
 import ProductTypeInput from "../components/ProductTypeInput";
-import { useNavigate } from "react-router-dom";
 
 const Input = () => {
-    const navigate = useNavigate();
     const [productTypeEditor, setProductTypeEditor] = useState(false);
     const [productTypes, setProductTypes] = useState([]);
     const [selectedProductType, setSelectedProductType] = useState("");
@@ -91,9 +89,12 @@ const Input = () => {
         setQtyInStock(e.target.value)
     }
     const handleOtherSubtypeInput = (e) => {
+        const otherSubtypeHasValue = e.target.value.length > 0 ? true : false
+
         setOtherSubtype(e.target.value)
-        if (e.target.value.length > 0) {
-            setSelectedProductSubtype(otherSubtype)
+
+        if (otherSubtypeHasValue) {
+            setSelectedProductSubtype(e.target.value)
         }
     }
 
@@ -105,8 +106,7 @@ const Input = () => {
         e.preventDefault();
         putProductSubtype()
         postProduct()
-        navigate('/');
-        
+
     };
 
     const postProduct = () => {
@@ -128,7 +128,8 @@ const Input = () => {
         if (selectedProductType != []) {
             getSubtypes();
         }
-    }, [selectedProductType]);
+        console.log('selectedProductSubType: ', selectedProductSubtype)
+    }, [selectedProductType, selectedProductSubtype]);
 
     return (
         <>
@@ -158,7 +159,7 @@ const Input = () => {
                                                 return (
                                                     <option value={
                                                         type.type
-                                                    }>
+                                                    } key={type._id}>
                                                         {
                                                         formatTitle(type.type)
                                                     } </option>
