@@ -13,18 +13,18 @@ dotenv.config()
 
 const __dirname = path.resolve();
 
-connectToDb().catch(err => console.log(err)). finally(() => {
+connectToDb().catch(err => console.log(err)).finally(() => {
     console.log('connected to MongoDB')
 });
 
 const app = express()
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
 
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
-  }
+}
 
 async function connectToDb() {
     await mongoose.connect(process.env.DATABASE_URL);
@@ -32,15 +32,15 @@ async function connectToDb() {
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '/frontend/build')))
-  
+
     app.get('/api', (req, res) =>
-      res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
     )
-  } else {
+} else {
     app.get('/api', (req, res) => {
-      res.send('API is running....')
+        res.send('API is running....')
     })
-  }
+}
 
 app.get('/api/product-types', async (req, res) => {
     const productType = await ProductType.find({ removed: false })
@@ -91,10 +91,11 @@ app.post('/api/product-types', async (req, res) => {
 
 
 app.put('/api/producttype/update/:type', async (req, res) => {
+    // if subtype already exists, don't push into ProductType.subtypes array.
+    let matched = false
     const filter = {
         type: req.params.type
     }
-    
     const update = {
         $push: {
             subtypes: {
@@ -102,17 +103,16 @@ app.put('/api/producttype/update/:type', async (req, res) => {
             }
         }
     }
-    
     const type = await ProductType.find(filter)
-    type.forEach(async (typeObj) => {
-        if (typeObj.subtypes !== req.body.subgroup) {
-            const data = await ProductType.findOneAndUpdate(filter, update)
-            res.send(data);
-            return
-        }
+
+    type[0].subtypes.forEach((subtype) => {
+        matched = (subtype.name === req.body.subgroup) ? true : false;
     })
 
-
+    if (!matched) {
+        const data = await ProductType.findOneAndUpdate(filter, update)
+        res.send(data);
+    }
 })
 
 
@@ -133,7 +133,7 @@ app.get('/api/products/:type', async (req, res) => {
     const type = req.params.type;
 
     try {
-        const products = await Product.find({type});
+        const products = await Product.find({ type });
         res.send(products)
     } catch (error) {
         console.error(error)
@@ -144,7 +144,6 @@ app.get('/api/products/:type', async (req, res) => {
 
 
 app.listen(PORT, () => {
-    console.log(`listening on port ${PORT} in ${
-        process.env.NODE_ENV
-    } mode.`);
+    console.log(`listening on port ${PORT} in ${process.env.NODE_ENV
+        } mode.`);
 })

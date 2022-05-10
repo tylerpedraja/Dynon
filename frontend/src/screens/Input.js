@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Banner from "../components/Banner/Banner";
 import axios from "axios";
 import ProductTypeInput from "../components/ProductTypeInput";
@@ -20,7 +20,7 @@ const Input = () => {
 
     const getProductTypes = async () => {
         try {
-            const {data} = await axios.get("/api/product-types");
+            const { data } = await axios.get("/api/product-types");
             setProductTypes(data);
             setLoaded(true);
         } catch (error) {
@@ -99,14 +99,12 @@ const Input = () => {
     }
 
     const putProductSubtype = (e) => {
-        axios.put(`/api/producttype/update/${selectedProductType}`, {subgroup: selectedProductSubtype})
+        axios.put(`/api/producttype/update/${selectedProductType}`, { subgroup: selectedProductSubtype })
     }
 
     const handleSubmitProduct = (e) => {
-        e.preventDefault();
-        putProductSubtype()
         postProduct()
-
+        putProductSubtype()
     };
 
     const postProduct = () => {
@@ -134,130 +132,127 @@ const Input = () => {
     return (
         <>
             <Banner title={"Dynon Skyview Order Worksheet"}
-                subtitle={"Add a Product"}/> {
-            loaded ? (
-                <div> {
-                    productTypeEditor && <ProductTypeInput/>
-                }
-                    <div className="container">
-                        <h1 className="h5 mt-5 mb-2">Add a Product</h1>
-                        <form>
-                            <div className="row ">
-                                <div className="col-md-6 mt-3">
-                                    <div className="form-group">
-                                        <label>Product Type</label>
-                                        <select className="form-select"
-                                            onChange={
-                                                ({target: {
+                subtitle={"Add a Product"} /> {
+                loaded ? (
+                    <div> {
+                        productTypeEditor && <ProductTypeInput />
+                    }
+                        <div className="container">
+                            <h1 className="h5 mt-5 mb-2">Add a Product</h1>
+                            <form>
+                                <div className="row ">
+                                    <div className="col-md-6 mt-3">
+                                        <div className="form-group">
+                                            <label>Product Type</label>
+                                            <select className="form-select"
+                                                onChange={
+                                                    ({ target: {
                                                         value
-                                                    }}) => handleProductTypeSelect(value)
-                                            }
-                                            required>
-                                            <option value="">Select One</option>
-                                            {
-                                            productTypes.map((type) => {
-                                                return (
-                                                    <option value={
-                                                        type.type
-                                                    } key={type._id}>
-                                                        {
-                                                        formatTitle(type.type)
-                                                    } </option>
-                                                );
-                                            })
-                                        }
-                                            <option value="other">
+                                                    } }) => handleProductTypeSelect(value)
+                                                }
+                                                required>
+                                                <option value="">Select One</option>
                                                 {
-                                                formatTitle("other")
-                                            }</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="col-md-6 mt-3">
-                                    <div className="form-group">
-                                        <label>Subtype</label>
-                                        <select value={selectedProductSubtype}
-                                            className="form-select"
-                                            onChange={
-                                                ({target: {
-                                                        value
-                                                    }}) => handleSubtypeSelect(value)
-                                            }
-                                            required>
-                                            <option value="test">Select One</option>
-                                            {
-                                            productSubtypes.map((subtype) => {
-                                                return <option>{
-                                                    subtype.name
-                                                }</option>;
-                                            })
-                                        }
-                                            <option className="text-success" value="other">New Subtype</option>
-                                        </select>
-                                    </div>
-                                    {
-                                    showOtherSubtype && (
-                                        <div className="form-group mt-2 bg-warning p-2 rounded">
-                                            <label>Other Subtype</label>
-                                            <input type="text" placeholder="Enter new subtype" className="form-control"
-                                                value={otherSubtype}
-                                                onChange={handleOtherSubtypeInput}
-                                                required/>
+                                                    productTypes.map((type) => {
+                                                        return (
+                                                            <option value={
+                                                                type.type
+                                                            } key={type._id}>
+                                                                {
+                                                                    formatTitle(type.type)
+                                                                } </option>
+                                                        );
+                                                    })
+                                                }
+                                                <option className="text-success" value="other">New Type</option>
+                                            </select>
                                         </div>
-                                    )
-                                } </div>
-                            </div>
-                            <div className="row ">
-                                <div className="col-md-6 mt-3">
-                                    <div className="form-group">
-                                        <label>Part Number</label>
-                                        <input type="text" className="form-control" placeholder="XXXXXX-XXX"
-                                            value={partNumber}
-                                            onChange={handlePartNumberInput}/>
+                                    </div>
+                                    <div className="col-md-6 mt-3">
+                                        <div className="form-group">
+                                            <label>Subtype</label>
+                                            <select value={selectedProductSubtype}
+                                                className="form-select"
+                                                onChange={
+                                                    ({ target: {
+                                                        value
+                                                    } }) => handleSubtypeSelect(value)
+                                                }
+                                                required>
+                                                <option value="test">Select One</option>
+                                                {
+                                                    productSubtypes.map((subtype) => {
+                                                        return <option>{
+                                                            subtype.name
+                                                        }</option>;
+                                                    })
+                                                }
+                                                <option className="text-success" value="other">New Subtype</option>
+                                            </select>
+                                        </div>
+                                        {
+                                            showOtherSubtype && (
+                                                <div className="form-group mt-2 bg-warning p-2 rounded">
+                                                    <label>Other Subtype</label>
+                                                    <input type="text" placeholder="Enter new subtype" className="form-control"
+                                                        value={otherSubtype}
+                                                        onChange={handleOtherSubtypeInput}
+                                                        required />
+                                                </div>
+                                            )
+                                        } </div>
+                                </div>
+                                <div className="row ">
+                                    <div className="col-md-6 mt-3">
+                                        <div className="form-group">
+                                            <label>Part Number</label>
+                                            <input type="text" className="form-control" placeholder="XXXXXX-XXX"
+                                                value={partNumber}
+                                                onChange={handlePartNumberInput} />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6 mt-3">
+                                        <div className="form-group">
+                                            <label>Product Name</label>
+                                            <input type="" className="form-control" placeholder="Enter product name"
+                                                value={name}
+                                                onChange={handleNameInput} />
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="col-md-6 mt-3">
-                                    <div className="form-group">
-                                        <label>Product Name</label>
-                                        <input type="" className="form-control" placeholder="Enter product name"
-                                            value={name}
-                                            onChange={handleNameInput}/>
+                                <div className="row ">
+                                    <div className="col-md-6 mt-3">
+                                        <div className="form-group">
+                                            <label>Price</label>
+                                            <input type="number" className="form-control" placeholder="$0.00"
+                                                onChange={handlePriceInput}
+                                                value={price} />
+                                            <small id="emailHelp" className="form-text text-muted">
+                                                This is the pre-tax price of the item, USD
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6 mt-3">
+                                        <div className="form-group">
+                                            <label>Quantity in stock</label>
+                                            <input type="number" className="form-control" placeholder="Enter quantity in stock"
+                                                value={qtyInStock}
+                                                onChange={handleQtyInStockInput} />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="row ">
-                                <div className="col-md-6 mt-3">
-                                    <div className="form-group">
-                                        <label>Price</label>
-                                        <input type="number" className="form-control" placeholder="$0.00"
-                                            onChange={handlePriceInput}
-                                            value={price}/>
-                                        <small id="emailHelp" className="form-text text-muted">
-                                            This is the pre-tax price of the item, USD
-                                        </small>
-                                    </div>
-                                </div>
-                                <div className="col-md-6 mt-3">
-                                    <div className="form-group">
-                                        <label>Quantity in stock</label>
-                                        <input type="number" className="form-control" placeholder="Enter quantity in stock"
-                                            value={qtyInStock}
-                                            onChange={handleQtyInStockInput}/>
-                                    </div>
-                                </div>
-                            </div>
-                            <button disabled={
+                                <button disabled={
                                     productTypeEditor ? true : false
                                 }
-                                onClick={handleSubmitProduct}
-                                className="btn btn-primary mt-3">
-                                Add Product
-                            </button>
-                        </form>
+                                    onClick={handleSubmitProduct}
+                                    className="btn btn-primary mt-3">
+                                    Add Product
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            ) : (spinner())
-        } </>
+                ) : (spinner())
+            } </>
     );
 };
 
