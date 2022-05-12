@@ -61,11 +61,29 @@ app.post('/api/product', async (req, res) => {
         if (err) {
             return console.error(err)
         }
-
         res.status(200)
         res.send(data)
     })
 
+})
+
+app.put('/api/product/:id/remove', (req, res) => {
+    const update = { remove: true }
+    const id = req.params.id
+
+    try {
+        Product.findByIdAndUpdate(id, update, (err, docs) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                console.log("Updated User : ", docs);
+            }
+        })
+    } catch (error) {
+        console.error(error)
+    }
+    res.send(product)
 })
 
 app.post('/api/product-types', async (req, res) => {
@@ -91,8 +109,6 @@ app.post('/api/product-types', async (req, res) => {
 
 
 app.put('/api/producttype/update/:type', async (req, res) => {
-    // if subtype already exists, don't push into ProductType.subtypes array.
-    let matched = false
     const filter = {
         type: req.params.type
     }
@@ -103,23 +119,30 @@ app.put('/api/producttype/update/:type', async (req, res) => {
             }
         }
     }
+
     const type = await ProductType.find(filter)
 
-    type[0].subtypes.forEach((subtype) => {
-        matched = (subtype.name === req.body.subgroup) ? true : false;
+    // if subtype already exists, don't push into ProductType.subtypes array.
+    const matchCount = type[0].subtypes.filter((subtype) => {
+        return subtype.name === req.body.subgroup
     })
+
+    const matched = (matchCount.length > 0) ? true : false
 
     if (!matched) {
         const data = await ProductType.findOneAndUpdate(filter, update)
         res.send(data);
+        return
     }
+
+    throw new Error('error: subtype already exists')
 })
 
 
 // Get all products
 app.get('/api/products', async (req, res) => {
     try {
-        const products = await Product.find({});
+        const products = await Product.find({ remove: false });
         res.send(products)
     } catch (error) {
         console.error(error)

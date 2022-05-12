@@ -18,7 +18,6 @@ const productTypeSchema = mongoose.Schema({
     type: {
         type: String,
         required: true,
-        lowercase: true,
         unique: true
     },
     subtypes: [subtypesSchema],

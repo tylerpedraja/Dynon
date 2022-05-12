@@ -6,13 +6,15 @@ import '../NavBar/navbar.css'
 const NavBar = () => {
   return (
     <div>
-        <nav className="navbar navbar-dark bg-dark">
-          <img className="img-fluid logo p-3" src={logo} alt="logo"></img>
-          <div className="d-flex align-items-center">
-              <Link className="nav-link text-white" to={'input-product'}>Manage Products</Link>
-              <Link className="nav-link text-white" to={'/'}>Worksheet</Link>
-          </div>
-        </nav>
+      <nav className="navbar navbar-dark bg-dark">
+        <Link to={'/'}>
+          <img className="img-fluid logo p-3" src={logo} alt="logo" />
+        </Link>
+        <div className="d-flex align-items-center">
+          <Link className="nav-link text-white" to={'product-manager'}>Manage Products</Link>
+          <Link className="nav-link text-white" to={'/'}>Worksheet</Link>
+        </div>
+      </nav>
     </div>
   )
 }

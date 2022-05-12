@@ -19,11 +19,13 @@ const productSchema = mongoose.Schema({
     },
     type: {
         type: String,
-        lowercase: true
     },
     subgroup: {
         type: String,
-        lowercase: true
+    },
+    remove: {
+        type: Boolean,
+        default: false,
     }
 })
 

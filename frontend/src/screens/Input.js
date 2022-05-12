@@ -102,10 +102,38 @@ const Input = () => {
         axios.put(`/api/producttype/update/${selectedProductType}`, { subgroup: selectedProductSubtype })
     }
 
+    const resetForm = () => {
+        setLoaded(false)
+        setProductTypeEditor(false)
+        setProductTypes([])
+        setSelectedProductType("")
+        setProductSubtypes([])
+        setSelectedProductSubtype("")
+        setPrice("")
+        setShowOtherSubtype(false)
+        setQtyInStock("")
+        setOtherSubtype("")
+        setPartNumber("")
+        setName("")
+        setLoaded(true)
+        getProductTypes()
+    }
+
     const handleSubmitProduct = (e) => {
+        e.preventDefault()
         postProduct()
         putProductSubtype()
+        resetForm()
+        showProductAddedAlert()
     };
+
+    const showProductAddedAlert = () => {
+        const alert = document.getElementById('productAddedAlert');
+        alert.classList.remove('d-none')
+        global.setTimeout(() => {
+            alert.classList.add('d-none');
+        }, 4000)
+    }
 
     const postProduct = () => {
         axios.post('/api/product', {
@@ -132,7 +160,12 @@ const Input = () => {
     return (
         <>
             <Banner title={"Dynon Skyview Order Worksheet"}
-                subtitle={"Add a Product"} /> {
+                subtitle={"Add a Product"} />
+
+            <div id="productAddedAlert" class="alert alert-success text-center d-none" role="alert">
+                Product Added
+            </div>
+            {
                 loaded ? (
                     <div> {
                         productTypeEditor && <ProductTypeInput />
