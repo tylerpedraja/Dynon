@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import ProductWorksheetItem from '../ProductWorksheetItem/ProductWorksheetItem';
-import ProductWorksheetItemHeader from '../ProductWorksheetItemHeader/ProductWorksheetItemHeader';
+import ProductWorksheetItem from './ProductWorksheetItem/ProductWorksheetItem';
+import ProductWorksheetItemHeader from '../WorksheetComponents/ProductWorksheetItemHeader';
 
 
 const ProductsWorksheetSection = (props) => {
@@ -17,9 +17,10 @@ const ProductsWorksheetSection = (props) => {
         <> {
             renderable && (
                 <div className="pb-3">
-                    <ProductWorksheetItemHeader type={
-                        props.type
-                    }
+                    <ProductWorksheetItemHeader
+                        type={
+                            props.type
+                        }
                         header={
                             props.header
                         }
@@ -28,15 +29,12 @@ const ProductsWorksheetSection = (props) => {
                         } />
                     <table className="table">
                         {
-                            props.subtypes.map((subtype) => {
+                            props.subtypes.map((subtype, index) => {
                                 return (
-                                    <>
+                                    <React.Fragment key={index} >
                                         <thead className="text-white rounded"
                                             style={
                                                 { backgroundColor: '#212529' }
-                                            }
-                                            key={
-                                                subtype._id
                                             }>
                                             <tr>
                                                 <th scope="col" className="d-none d-md-table-cell">Part Number</th>
@@ -50,13 +48,13 @@ const ProductsWorksheetSection = (props) => {
                                                 <th scope="col" width="100px">Subtotal</th>
                                             </tr>
                                         </thead>
-                                        <tbody> {
-                                            props.products.map((product) => {
+                                        <tbody>
+                                            {props.products.map((product, index) => {
                                                 if (product.subgroup.toLowerCase() == subtype.name.toLowerCase()) {
                                                     return (
                                                         <ProductWorksheetItem
                                                             key={
-                                                                product._id
+                                                                index
                                                             }
                                                             part_number={
                                                                 product.part_number
@@ -72,12 +70,12 @@ const ProductsWorksheetSection = (props) => {
                                                             } />
                                                     )
                                                 }
-                                            })
-                                        } </tbody>
-                                    </>
+                                            })}
+                                        </tbody>
+                                    </React.Fragment>
                                 )
                             })
-                        } </table>
+                        }</table>
                 </div>
             )
         } </>

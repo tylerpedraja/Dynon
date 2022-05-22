@@ -5,16 +5,29 @@ import axios from 'axios'
 const ProductsList = () => {
   const [loading, setLoading] = useState(false)
   const [products, setProducts] = useState([])
+  const [productTypes, setProductTypes] = useState([])
 
   const getProducts = async () => {
     try {
       const { data } = await axios.get('/api/products')
-      console.log(data);
       setProducts(data)
     } catch (err) {
       console.error(err);
     }
+  }
+
+  const getProductTypes = async () => {
+    try {
+      const { data } = await axios.get('/api/product-types')
+      setProductTypes(data);
+    } catch (err) {
+      console.error(err);
+    }
     setLoading(true)
+  }
+
+  const handleDelete = (id) => {
+    axios.put(`/api/product/${id}/remove`)
   }
 
   const spinner = () => {
@@ -25,8 +38,10 @@ const ProductsList = () => {
     );
   };
 
+
   useEffect(() => {
     getProducts()
+    getProductTypes();
   }, [])
 
   if (!loading) return spinner()
@@ -35,7 +50,7 @@ const ProductsList = () => {
     {products.length == 0 ? <div className="lead text-center mt-5">No Products...</div> : (
       <ul className="list-group mt-2">
         {products.map((product) => (
-          <ProductsListItem key={product._id} product={product} />
+          <ProductsListItem key={product._id} product={product} deleteRecord={handleDelete} />
         ))}
       </ul>
     )}

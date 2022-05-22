@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Banner from "../components/Banner/Banner";
+import Banner from "../Banner/Banner";
 import axios from "axios";
-import ProductTypeInput from "../components/ProductTypeInput";
+import ProductTypeInput from "./ProductTypeInput";
 
 const Input = () => {
     const [productTypeEditor, setProductTypeEditor] = useState(false);
@@ -154,7 +154,6 @@ const Input = () => {
         if (selectedProductType != []) {
             getSubtypes();
         }
-        console.log('selectedProductSubType: ', selectedProductSubtype)
     }, [selectedProductType, selectedProductSubtype]);
 
     return (
@@ -162,7 +161,7 @@ const Input = () => {
             <Banner title={"Dynon Skyview Order Worksheet"}
                 subtitle={"Add a Product"} />
 
-            <div id="productAddedAlert" class="alert alert-success text-center d-none" role="alert">
+            <div id="productAddedAlert" className="alert alert-success text-center d-none" role="alert">
                 Product Added
             </div>
             {
@@ -186,11 +185,11 @@ const Input = () => {
                                                 required>
                                                 <option value="">Select One</option>
                                                 {
-                                                    productTypes.map((type) => {
+                                                    productTypes.map((type, index) => {
                                                         return (
                                                             <option value={
                                                                 type.type
-                                                            } key={type._id}>
+                                                            } key={index}>
                                                                 {
                                                                     formatTitle(type.type)
                                                                 } </option>
@@ -214,8 +213,8 @@ const Input = () => {
                                                 required>
                                                 <option value="test">Select One</option>
                                                 {
-                                                    productSubtypes.map((subtype) => {
-                                                        return <option>{
+                                                    productSubtypes.map((subtype, index) => {
+                                                        return <option key={index}>{
                                                             subtype.name
                                                         }</option>;
                                                     })

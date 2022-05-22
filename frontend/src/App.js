@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import NavBar from './components/NavBar/NavBar';
 import Worksheet from './screens/Worksheet/Worksheet';
 import ErrorPage from './screens/ErrorPage';
-import Input from './screens/Input';
+import Input from './components/ProductManagerComponents/Input';
 import ProductManager from './screens/ProductManager';
 
 

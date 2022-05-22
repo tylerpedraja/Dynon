@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './products-worksheet.css';
-import ProductsWorksheetSection from '../ProductsWorksheetSection/ProductsWorksheetSection';
+import ProductsWorksheetSection from '../WorksheetComponents/ProductsWorksheetSection';
 import axios from 'axios';
 
 const ProductsWorksheet = () => {
@@ -9,7 +8,6 @@ const ProductsWorksheet = () => {
     const [loaded, setLoaded] = useState(false)
 
     const getProductTypes = async () => {
-        console.log('running getProductTypes now...')
 
         const { data } = await axios.get('/api/product-types').catch((err) => {
             if (err.response) {
@@ -25,7 +23,6 @@ const ProductsWorksheet = () => {
             }
             console.log(err.config);
         });
-        console.log('data retrieved: ', data)
         setProductTypes(data)
         setLoaded(true)
     }
@@ -39,26 +36,31 @@ const ProductsWorksheet = () => {
         return (
             <div className="container">
                 {
-                productTypes.map(type => <ProductsWorksheetSection 
-                    key={
-                        type._id
-                    }
-                    type={
-                        type.type
-                    }
-                    subtypes={
-                        type.subtypes
-                    }
-                    header={
-                        type.header
-                    }
-                    subheader={
-                        type.subheader
-                    }
-                    products={
-                        products.filter(product => product.type.toLowerCase() == type.type.toLowerCase())
-                    }/>)
-            } 
+                    productTypes.map((type, index) =>
+                    (
+                        <ProductsWorksheetSection
+                            key={index}
+                            id={
+                                type._id
+                            }
+                            type={
+                                type.type
+                            }
+                            subtypes={
+                                type.subtypes
+                            }
+                            header={
+                                type.header
+                            }
+                            subheader={
+                                type.subheader
+                            }
+                            products={
+                                products.filter(product => product.type.toLowerCase() == type.type.toLowerCase())
+                            } />
+                    )
+                    )
+                }
             </div>
         )
     }

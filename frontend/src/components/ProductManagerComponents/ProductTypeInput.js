@@ -1,4 +1,4 @@
-import React, {useState } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios';
 
 const ProductTypeInput = () => {
@@ -31,46 +31,46 @@ const ProductTypeInput = () => {
 
     return (
         <>
-            <div class="container-fluid pb-3"
+            <div className="container-fluid pb-3"
                 style={
-                    {backgroundColor: '#E7E9EB'}
-            }>
+                    { backgroundColor: '#E7E9EB' }
+                }>
                 <div className="container">
                     <h1 className="h5 text-success pt-3">Add a Product Type</h1>
                     <form className="mb-4">
                         <div className="row">
                             <div className="col-md-4 mt-3">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Type</label>
-                                    <input type="text" required class="form-control" placeholder='Ex. "Harnesses"'
+                                    <input type="text" required className="form-control" placeholder='Ex. "Harnesses"'
                                         value={type}
-                                        onChange={handleTypeInput}/>
+                                        onChange={handleTypeInput} />
                                 </div>
                             </div>
                             <div className="col-md-4 mt-3">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Info Title</label>
-                                    <input type="text" required class="form-control" placeholder="Ex. Choose Your Display Configuration"
+                                    <input type="text" required className="form-control" placeholder="Ex. Choose Your Display Configuration"
                                         value={title}
-                                        onChange={handleTitleInput}/>
+                                        onChange={handleTitleInput} />
                                 </div>
                             </div>
                             <div className="col-md-4 mt-3">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>FYI Header</label>
-                                    <input type="text" required class="form-control" placeholder='Ex. "How many displays do I need?"'
+                                    <input type="text" required className="form-control" placeholder='Ex. "How many displays do I need?"'
                                         value={header}
-                                        onChange={handleHeaderInput}/>
+                                        onChange={handleHeaderInput} />
                                 </div>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col mt-3">
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>FYI Description</label>
-                                    <textarea rows="5" required class="form-control" placeholder='Ex. "It depends on the aircraft..."'
+                                    <textarea rows="5" required className="form-control" placeholder='Ex. "It depends on the aircraft..."'
                                         value={description}
-                                        onChange={handleDescriptionInput}/>
+                                        onChange={handleDescriptionInput} />
                                 </div>
                             </div>
                         </div>
