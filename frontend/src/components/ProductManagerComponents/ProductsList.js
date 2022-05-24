@@ -2,10 +2,16 @@ import React, { useState, useEffect } from 'react'
 import ProductsListItem from './ProductsListItem'
 import axios from 'axios'
 
-const ProductsList = () => {
+const ProductsList = (props) => {
   const [loading, setLoading] = useState(false)
   const [products, setProducts] = useState([])
-  const [productTypes, setProductTypes] = useState([])
+  const [productTypes, setProductTypes] = useState(props.productTypes)
+  const [filteredProducts, setFilteredProducts] = useState([])
+
+  const init = async () => {
+    await getProducts()
+    filterProducts()
+  }
 
   const getProducts = async () => {
     try {
@@ -14,16 +20,22 @@ const ProductsList = () => {
     } catch (err) {
       console.error(err);
     }
+    setLoading(true)
   }
 
-  const getProductTypes = async () => {
-    try {
-      const { data } = await axios.get('/api/product-types')
-      setProductTypes(data);
-    } catch (err) {
-      console.error(err);
+  const filterProducts = () => {
+    const filter = (props.filter === 'default') ? false : props.filter
+
+    let filteredProducts = products
+
+    if (filter) {
+      filteredProducts = products.filter((product) => {
+        return product.type.toLowerCase() == filter
+      })
     }
-    setLoading(true)
+
+
+    setFilteredProducts(filteredProducts);
   }
 
   const handleDelete = (id) => {
@@ -38,18 +50,27 @@ const ProductsList = () => {
     );
   };
 
+  const capitalize = (str) => {
+    const lower = str.toLowerCase()
+    return str.charAt(0).toUpperCase() + lower.slice(1);
+  }
+
 
   useEffect(() => {
-    getProducts()
-    getProductTypes();
-  }, [])
+    init()
+  }, [props.filter])
+
+  useEffect(() => {
+    filterProducts()
+  }, [products])
 
   if (!loading) return spinner()
 
   return (<>
+    <h4 className="my-3">{props.filter !== 'default' && capitalize(`${props.filter}`)} Products: ( {filteredProducts.length} )</h4>
     {products.length == 0 ? <div className="lead text-center mt-5">No Products...</div> : (
       <ul className="list-group mt-2">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <ProductsListItem key={product._id} product={product} deleteRecord={handleDelete} />
         ))}
       </ul>

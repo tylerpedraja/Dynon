@@ -9,24 +9,32 @@ const ProductsListItem = (props, handleDelete) => {
         setShowDeleteModal(false)
     }
 
+    const pointerCursor = {
+        cursor: 'pointer'
+    }
+
     return (
         <>
             {!removed && (
                 <li className="list-group-item" style={{ minHeight: '40px' }}>
-                    <div className='d-flex justify-content-between align-items-center'>
+                    <div className='d-flex align-items-center'>
                         <div>
                             <img src="https://www.beautycounter.com/images/placeholder.jpg" className="img-fluid me-3" style={{ maxHeight: '40px' }} />
-                            {props.product.name}
                         </div>
-                        <div className="actions">
-                            <i className="fa-solid fa-trash" onClick={() => setShowDeleteModal(true)} />
+                        <div className="small">
+                            <div className="fw-light">{props.product.name}</div>
+                            <div>Type: {props.product.type}</div>
+                        </div>
+                        <div className="actions ms-auto">
+                            <i className="fa-solid fa-pencil me-3" style={pointerCursor} onClick={() => setShowDeleteModal(true)} />
+                            <i className="fa-solid fa-trash" style={pointerCursor} onClick={() => setShowDeleteModal(true)} />
                         </div>
                     </div>
                 </li>
             )}
             {
                 showDeleteModal && (
-                    <div className="modal d-block" tabindex="-1" role="dialog">
+                    <div className="modal d-block" tabIndex="-1" role="dialog">
                         <div className="modal-dialog" role="document">
                             <div className="modal-content">
                                 <div className="modal-header">
