@@ -5,7 +5,6 @@ import axios from 'axios'
 const ProductsList = (props) => {
   const [loading, setLoading] = useState(false)
   const [products, setProducts] = useState([])
-  const [productTypes, setProductTypes] = useState(props.productTypes)
   const [filteredProducts, setFilteredProducts] = useState([])
 
   const init = async () => {
@@ -24,16 +23,15 @@ const ProductsList = (props) => {
   }
 
   const filterProducts = () => {
-    const filter = (props.filter === 'default') ? false : props.filter
+    const filter = props.filter
 
     let filteredProducts = products
 
-    if (filter) {
+    if (filter !== 'default') {
       filteredProducts = products.filter((product) => {
         return product.type.toLowerCase() == filter
       })
     }
-
 
     setFilteredProducts(filteredProducts);
   }
@@ -71,7 +69,7 @@ const ProductsList = (props) => {
     {products.length == 0 ? <div className="lead text-center mt-5">No Products...</div> : (
       <ul className="list-group mt-2">
         {filteredProducts.map((product) => (
-          <ProductsListItem key={product._id} product={product} deleteRecord={handleDelete} />
+          <ProductsListItem key={product._id} product={product} productTypes={props.productTypes} deleteRecord={handleDelete} />
         ))}
       </ul>
     )}

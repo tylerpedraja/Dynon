@@ -39,7 +39,7 @@ const ProductManager = () => {
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li value={'default'} onClick={handleclickFilter}><a className="dropdown-item" href="#">Default</a></li>
-              <div class="dropdown-divider"></div>
+              <div className="dropdown-divider"></div>
               {productTypes.map((type, index) => {
                 return <li key={index} value={type.type} onClick={handleclickFilter}><a className="dropdown-item" href="#">{type.type}</a></li>
               })}

@@ -64,7 +64,26 @@ app.post('/api/product', async (req, res) => {
         res.status(200)
         res.send(data)
     })
+})
 
+app.put('/api/product', async (req, res) => {
+    const data = {
+        _id: req.body._id,
+        part_number: req.body.part_number,
+        name: req.body.name,
+        price: req.body.price,
+        qty_in_stock: req.body.qty_in_stock,
+        type: req.body.type,
+        subgroup: req.body.subgroup
+    }
+
+    Product.findByIdAndUpdate(data._id, data, (err) => {
+        if (err) {
+            return console.error(err)
+        }
+        res.status(200)
+        res.send(data)
+    })
 })
 
 app.put('/api/product/:id/remove', (req, res) => {

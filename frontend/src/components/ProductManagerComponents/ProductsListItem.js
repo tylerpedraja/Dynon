@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const ProductsListItem = (props, handleDelete) => {
     const [removed, setRemoved] = useState(false)
@@ -26,7 +27,12 @@ const ProductsListItem = (props, handleDelete) => {
                             <div>Type: {props.product.type}</div>
                         </div>
                         <div className="actions ms-auto">
-                            <i className="fa-solid fa-pencil me-3" style={pointerCursor} onClick={() => setShowDeleteModal(true)} />
+                            <Link to={'/edit-product'} state={{
+                                product: props.product,
+                                productTypes: props.productTypes
+                            }}>
+                                <i className="fa-solid fa-pencil me-3 text-dark" style={pointerCursor} />
+                            </Link>
                             <i className="fa-solid fa-trash" style={pointerCursor} onClick={() => setShowDeleteModal(true)} />
                         </div>
                     </div>
