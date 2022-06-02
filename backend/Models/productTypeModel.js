@@ -9,7 +9,6 @@ const subtypesSchema = mongoose.Schema({
 )
 
 const productTypeSchema = mongoose.Schema({
-
     header: {
         type: String,
         required: true

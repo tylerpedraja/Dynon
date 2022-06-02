@@ -10,9 +10,11 @@ const ProductsWorksheetSection = (props) => {
 
     const addItem = (value) => {
         setSubtotal(subTotal + value)
+        props.addItem(value)
     }
     const subtractItem = (value) => {
         setSubtotal(subTotal - value)
+        props.subtractItem(value)
     }
 
 
@@ -31,7 +33,6 @@ const ProductsWorksheetSection = (props) => {
                     subheader={
                         props.subheader
                     } />
-                subTotal: {subTotal}
                 <table className="table">
                     {
                         props.subtypes.map((subtype, index) => {

@@ -6,6 +6,8 @@ const ProductsWorksheet = () => {
     const [productTypes, setProductTypes] = useState([])
     const [products, setProducts] = useState([])
     const [loaded, setLoaded] = useState(false)
+    const [subTotal, setSubtotal] = useState(0)
+    const [alertShown, setAlertShown] = useState('none')
 
     const getProductTypes = async () => {
 
@@ -27,14 +29,38 @@ const ProductsWorksheet = () => {
         setLoaded(true)
     }
 
+    const addItem = (value) => {
+        setSubtotal(subTotal + value)
+    }
+    const subtractItem = (value) => {
+        setSubtotal(subTotal - value)
+    }
+
+    const formatCurrency = (value) => {
+        const formatted = value.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        })
+        return formatted
+    }
+
     const getProducts = async () => {
         const { data } = await axios.get('/api/products');
         setProducts(data);
     }
 
+    useEffect(() => {
+        if (subTotal > 0) {
+            setAlertShown('block')
+        }
+    }, [subTotal])
+
     const showWorksheet = () => {
         return (
             <div className="container">
+                <div class="alert alert-success text-center" style={{ display: alertShown }} role="alert">
+                    Your <strong>estimated total</strong> is: {formatCurrency(subTotal)}
+                </div>
                 {
                     productTypes.map((type, index) =>
                     (
@@ -57,7 +83,9 @@ const ProductsWorksheet = () => {
                             }
                             products={
                                 products.filter(product => product.type.toLowerCase() == type.type.toLowerCase())
-                            } />
+                            }
+                            addItem={addItem}
+                            subtractItem={subtractItem} />
                     )
                     )
                 }
