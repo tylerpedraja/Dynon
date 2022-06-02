@@ -36,9 +36,7 @@ const ProductsList = (props) => {
     setFilteredProducts(filteredProducts);
   }
 
-  const handleDelete = (id) => {
-    axios.put(`/api/product/${id}/remove`)
-  }
+
 
   const spinner = () => {
     return (
@@ -69,7 +67,7 @@ const ProductsList = (props) => {
     {products.length == 0 ? <div className="lead text-center mt-5">No Products...</div> : (
       <ul className="list-group mt-2">
         {filteredProducts.map((product) => (
-          <ProductsListItem key={product._id} product={product} productTypes={props.productTypes} deleteRecord={handleDelete} />
+          <ProductsListItem key={product._id} product={product} productTypes={props.productTypes} />
         ))}
       </ul>
     )}

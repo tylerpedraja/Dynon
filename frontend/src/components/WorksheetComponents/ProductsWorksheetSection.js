@@ -5,11 +5,13 @@ import ProductWorksheetItemHeader from '../WorksheetComponents/ProductWorksheetI
 
 const ProductsWorksheetSection = (props) => {
     const [renderable, setRenderable] = useState(false)
+    const [subTotal, setSubtotal] = useState(0)
 
     const renderProductTypeContent = () => {
         if (props.products.length === 0) return
         return (
-            <div className="pb-3">
+
+            <div className="pb-3" >
                 <ProductWorksheetItemHeader
                     type={
                         props.type
@@ -20,6 +22,7 @@ const ProductsWorksheetSection = (props) => {
                     subheader={
                         props.subheader
                     } />
+                subTotal: {subTotal}
                 <table className="table">
                     {
                         props.subtypes.map((subtype, index) => {
@@ -64,7 +67,8 @@ const ProductsWorksheetSection = (props) => {
                                                         }
                                                         qty_in_stock={
                                                             product.qty_in_stock
-                                                        } />
+                                                        }
+                                                    />
                                                 )
                                             }
                                         })}
@@ -73,7 +77,7 @@ const ProductsWorksheetSection = (props) => {
                             )
                         })
                     }</table>
-            </div>
+            </div >
         )
     }
 

@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import DeleteProductModal from './DeleteProductModal'
+import axios from 'axios'
 
 const ProductsListItem = (props, handleDelete) => {
     const [removed, setRemoved] = useState(false)
     const [showDeleteModal, setShowDeleteModal] = useState(false)
 
-    const deleteProductHandler = () => {
-        setRemoved(true)
+    const hideDeleteModal = () => {
         setShowDeleteModal(false)
     }
 
@@ -38,27 +39,7 @@ const ProductsListItem = (props, handleDelete) => {
                     </div>
                 </li>
             )}
-            {
-                showDeleteModal && (
-                    <div className="modal d-block" tabIndex="-1" role="dialog">
-                        <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title">Delete</h5>
-                                </div>
-                                <div className="modal-body">
-                                    <p>Do you really want to delete this item?</p>
-                                    {props.product.name}
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-danger" onClick={() => props.deleteRecord(props.product._id)}>Delete</button>
-                                    <button type="button" className="btn btn-secondary" onClick={() => setShowDeleteModal(false)}>Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )
-            }
+            <DeleteProductModal product={props.product} hide={hideDeleteModal} show={showDeleteModal} />
         </>
     )
 }

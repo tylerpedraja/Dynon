@@ -14,8 +14,9 @@ const ProductWorksheetItem = (props) => {
   }
 
   const handleAddItem = () => {
+    let value = subTotal + props.price
     setQuantity(quantity + 1);
-    setSubTotal(subTotal + props.price)
+    setSubTotal(value)
   }
 
   const formatCurrency = (value) => {
