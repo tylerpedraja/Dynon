@@ -5,7 +5,16 @@ import ProductWorksheetItemHeader from '../WorksheetComponents/ProductWorksheetI
 
 const ProductsWorksheetSection = (props) => {
     const [renderable, setRenderable] = useState(false)
+    const [itemTotal, setItemTotal] = useState(0)
     const [subTotal, setSubtotal] = useState(0)
+
+    const addItem = (value) => {
+        setSubtotal(subTotal + value)
+    }
+    const subtractItem = (value) => {
+        setSubtotal(subTotal - value)
+    }
+
 
     const renderProductTypeContent = () => {
         if (props.products.length === 0) return
@@ -68,6 +77,8 @@ const ProductsWorksheetSection = (props) => {
                                                         qty_in_stock={
                                                             product.qty_in_stock
                                                         }
+                                                        addItem={addItem}
+                                                        subtractItem={subtractItem}
                                                     />
                                                 )
                                             }
