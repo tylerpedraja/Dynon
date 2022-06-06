@@ -4,8 +4,16 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser'
 import morgan from 'morgan';
 import path from 'path'
-import ProductType from '../backend/Models/productTypeModel.js'
-import Product from './Models/productModel.js';
+import {
+    getProducts,
+    getProductTypes,
+    getProductTypeById,
+    postProduct,
+    postProductType,
+    updateProduct,
+    removeProductById,
+    updateProductType
+} from './controllers/productsController.js'
 
 const PORT = process.env.PORT || 3002;
 
@@ -42,148 +50,29 @@ if (process.env.NODE_ENV === 'production') {
     })
 }
 
-app.get('/api/product-types', async (req, res) => {
-    const productType = await ProductType.find({ removed: false })
-    res.send(productType);
-})
+// @desc GET all products where remove = false
+app.get('/api/products', getProducts)
 
-app.post('/api/product', async (req, res) => {
-    const data = {
-        part_number: req.body.part_number,
-        name: req.body.name,
-        price: req.body.price,
-        qty_in_stock: req.body.qty_in_stock,
-        type: req.body.type,
-        subgroup: req.body.subgroup
-    }
+// @desc GET all products where removed = false
+app.get('/api/product-types', getProductTypes)
 
-    Product.create(data, (err) => {
-        if (err) {
-            return console.error(err)
-        }
-        res.status(200)
-        res.send(data)
-    })
-})
+// @desc GET all products by type
+app.get('/api/products/:type', getProductTypeById)
 
-app.put('/api/product', async (req, res) => {
-    const data = {
-        _id: req.body._id,
-        part_number: req.body.part_number,
-        name: req.body.name,
-        price: req.body.price,
-        qty_in_stock: req.body.qty_in_stock,
-        type: req.body.type,
-        subgroup: req.body.subgroup
-    }
+// @desc POST a product
+app.post('/api/product', postProduct)
 
-    Product.findByIdAndUpdate(data._id, data, (err) => {
-        if (err) {
-            return console.error(err)
-        }
-        res.status(200)
-        res.send(data)
-    })
-})
+// @desc POST a product type
+app.post('/api/product-types', postProductType)
 
-app.put('/api/product/:id/remove', (req, res) => {
-    const update = { remove: true }
-    const id = req.params.id
+// @desc PUT update a product
+app.put('/api/product', updateProduct)
 
-    try {
-        Product.findByIdAndUpdate(id, update, (err, docs) => {
-            if (err) {
-                console.log(err)
-            }
-            else {
-                console.log("Updated User : ", docs);
-            }
-        })
-    } catch (error) {
-        console.error(error)
-    }
-    res.send(product)
-})
+// @desc PUT remove a product by id
+app.put('/api/product/:id/remove', removeProductById)
 
-app.post('/api/product-types', async (req, res) => {
-    const data = {
-        header: req.body.header,
-        subheader: {
-            title: req.body.title,
-            description: req.body.description
-        },
-        type: req.body.type
-    }
-
-    ProductType.create(data, (err) => {
-        if (err) {
-            return console.error(err)
-        }
-
-        res.status(200)
-        res.send(data)
-    })
-
-})
-
-
-app.put('/api/producttype/update/:type', async (req, res) => {
-    const filter = {
-        type: req.params.type
-    }
-    const update = {
-        $push: {
-            subtypes: {
-                name: req.body.subgroup
-            }
-        }
-    }
-
-    const type = await ProductType.find(filter)
-
-    // if subtype already exists, don't push into ProductType.subtypes array.
-    const matchCount = type[0].subtypes.filter((subtype) => {
-        return subtype.name === req.body.subgroup
-    })
-
-    const matched = (matchCount.length > 0) ? true : false
-
-    if (!matched) {
-        const data = await ProductType.findOneAndUpdate(filter, update)
-        res.send(data);
-        return
-    }
-
-    throw new Error('error: subtype already exists')
-})
-
-
-// Get all products
-app.get('/api/products', async (req, res) => {
-    try {
-        const products = await Product.find({ remove: false });
-        res.send(products)
-    } catch (error) {
-        console.error(error)
-        res.send(error);
-        res.status(500)
-    }
-})
-
-// Get products by type
-app.get('/api/products/:type', async (req, res) => {
-    const type = req.params.type;
-
-    try {
-        const products = await Product.find({ type });
-        res.send(products)
-    } catch (error) {
-        console.error(error)
-        res.send(error);
-        res.status(500)
-    }
-})
-
+// @desc PUT update a product type
+app.put('/api/producttype/update/:type', updateProductType)
 
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT} in ${process.env.NODE_ENV
